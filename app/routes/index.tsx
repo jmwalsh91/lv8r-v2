@@ -3,6 +3,7 @@ import { Link } from "@remix-run/react";
 export default function Index() {
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
+
       <p className="text-4xl text-secondary"> This is index route</p>
       <div className="text-2xl text-base glass">
         This will be rendered when no slug is present, so this is main.
@@ -10,6 +11,8 @@ export default function Index() {
       <Link to="login">
         <button className="btn btn-primary">Click me for login</button>
       </Link>
+
+
     </div>
   );
 }
