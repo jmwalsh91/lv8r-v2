@@ -7,6 +7,8 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import Foundation from "./components/Foundation";
+import NavBar from "./components/NavBar";
 import styles from "./styles/app.css"
 
 export function links() {
@@ -26,8 +28,11 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
+     <body>
+       <NavBar/>
+       <Foundation>
         <Outlet />
+        </Foundation>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
