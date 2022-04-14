@@ -1,10 +1,24 @@
 import React from "react";
 import { Form, Link, useActionData } from "@remix-run/react";
-
+import type { LoaderFunction, ActionFunction } from "@remix-run/node";
+import { authenticator, supabaseStrategy } from "~/services/auth.server";
 //TODO: ACTION FUNCTION.
 //TODO: Validation and Error Handling
 //TODO: ^^ Optimistic UI.
 //TODO: Login should not have props, do not use FC typing so we can avoid introducing typed children. Determine best practice and refactor.
+
+export const loader: LoaderFunction = async({ request }) => 
+    supabaseStrategy.checkSession(request, {
+        successRedirect: '/private'
+    })
+
+export const action: ActionFunction = async({ request }) =>
+  authenticator.authenticate('sb', request, {
+    successRedirect: '/private',
+    failureRedirect: '/login',
+  })
+
+
 function Login() {
   return (
     <div className="card w-96 bg-neutral text-neutral-content my-10">
