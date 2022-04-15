@@ -1,8 +1,22 @@
 import { Form } from "@remix-run/react";
-import React from "react";
+import React, { FieldsetHTMLAttributes } from "react";
+import type { ActionFunction, FormData, LoaderFunction } from "@remix-run/node";
+import { registerSubmit } from "~/utilities/register";
+
+//Action: Form submission. 
+//Get formData from request and pass form object to registerSubmit function, return result of registerSubmit
+export const action: ActionFunction = async ({request}) => {
+
+  let form: Object = await request.formData()
+  let user: Object = await registerSubmit({form})
+  return user
+}
+
+//Loader:
+
 
 type Props = {};
-//TODO: ACTION FUNCTION { get form data -> call registerSubmit -> Optimistic UI -> validate -> handle error or redirect to /register/$accountID on success}
+
 function Index({}: Props) {
   return (
     <div className="card w-96 bg-neutral ">

@@ -2,19 +2,21 @@ import React from "react";
 import { Form, Link, useActionData } from "@remix-run/react";
 import type { LoaderFunction, ActionFunction } from "@remix-run/node";
 import { authenticator, supabaseStrategy } from "~/services/auth.server";
-//TODO: ACTION FUNCTION.
+
 //TODO: Validation and Error Handling
 //TODO: ^^ Optimistic UI.
 //TODO: Login should not have props, do not use FC typing so we can avoid introducing typed children. Determine best practice and refactor.
 
+//Loader: Check session on page load, if session exists: redirect to dashboard
 export const loader: LoaderFunction = async({ request }) => 
     supabaseStrategy.checkSession(request, {
-        successRedirect: '/private'
+        successRedirect: '/dashboard'
     })
 
+//Action: Call authenticate method of authenticator instatiated in auth.server, which will call supabase client signUp function. Success: nav to user's dashboard, failure: reload login page.
 export const action: ActionFunction = async({ request }) =>
   authenticator.authenticate('sb', request, {
-    successRedirect: '/private',
+    successRedirect: '/dashboard',
     failureRedirect: '/login',
   })
 
@@ -59,7 +61,7 @@ function Login() {
             </button>
           </div>
         </Form>
-        {/* TODO: link to register */}
+  
         <Link to="/register">
           <button className="btn btn-ghost">Register</button>
         </Link>
