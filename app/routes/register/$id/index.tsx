@@ -1,8 +1,17 @@
-import { ActionFunction } from "@remix-run/node";
+import { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { Form } from "@remix-run/react";
 import React from "react";
+import { supabaseStrategy } from "~/services/auth.server";
 
-
+export const loader: LoaderFunction = async ({request, params}) => {
+  const session = await supabaseStrategy.checkSession(request)
+  if (!session) {
+    console.log("Handle this error")
+  } else console.log(session)
+console.log("this is params")
+console.log(params)
+return params
+}
 type Props = {};
 //TODO: Uncomment paramId
 function RegisterUsername({}: /* params */ Props) {

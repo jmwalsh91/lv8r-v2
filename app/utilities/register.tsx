@@ -17,7 +17,7 @@ if (password1 !== password2) {
     password: `${password1}`
   })
   if (error) return error
-  let data = {user, session}
-  return data
+
+  return user?.id  
 }
 }

@@ -1,15 +1,24 @@
-import { Form } from "@remix-run/react";
+import { Form, Link } from "@remix-run/react";
 import React, { FieldsetHTMLAttributes } from "react";
-import type { ActionFunction, FormData, LoaderFunction } from "@remix-run/node";
+import { ActionFunction, FormData, LoaderFunction, redirect } from "@remix-run/node";
 import { registerSubmit } from "~/utilities/register";
+import { ApiError } from "@supabase/supabase-js";
+import { authenticator } from "~/services/auth.server";
 
 //Action: Form submission. 
 //Get formData from request and pass form object to registerSubmit function, return result of registerSubmit
 export const action: ActionFunction = async ({request}) => {
 
   let form: Object = await request.formData()
-  let user: Object = await registerSubmit({form})
-  return user
+  let user: string | ApiError | undefined = await registerSubmit({form})
+  console.log("user is")
+  if (user) {
+    console.log("typeof user is" + typeof user)
+    return authenticator.authenticate('sb', request, {
+      successRedirect: `register/${user}`,
+      failureRedirect: '/',
+    })
+  } else return redirect('/')
 }
 
 //Loader:
@@ -62,9 +71,9 @@ function Index({}: Props) {
           </div>
 
           <div className="card-actions justify-around py-5">
-            {/* <Link to="/logreg/createpitch"> */}
+            
             <button className="btn btn-primary ">Register</button>
-            {/* </Link> */}
+    
           </div>
         </Form>
       </div>
