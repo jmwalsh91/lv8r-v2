@@ -1,8 +1,29 @@
-import { Form } from "@remix-run/react";
-import React from "react";
+import { Form, Link } from "@remix-run/react";
+import React, { FieldsetHTMLAttributes } from "react";
+import type { ActionFunction } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
+import { registerSubmit } from "~/utilities/register";
+import { ApiError } from "@supabase/supabase-js";
+import { authenticator } from "~/services/auth.server";
+
+//Action: Form submission.
+//Get formData from request and pass form object to registerSubmit function, return result of registerSubmit
+export const action: ActionFunction = async ({ request }) => {
+  let form: Object = await request.clone().formData();
+  let user: string | ApiError | undefined = await registerSubmit({ form });
+
+  if (user) {
+    return authenticator.authenticate("sb", request, {
+      successRedirect: `register/${user}`,
+      failureRedirect: "/",
+    });
+  } else return redirect("/");
+};
+
+//Loader:
 
 type Props = {};
-//TODO: ACTION FUNCTION { get form data -> call registerSubmit -> Optimistic UI -> validate -> handle error or redirect to /register/$accountID on success}
+
 function Index({}: Props) {
   return (
     <div className="card w-96 bg-neutral ">
@@ -26,7 +47,7 @@ function Index({}: Props) {
               <span>Password</span>
               <input
                 type="password"
-                name="password1"
+                name="password"
                 placeholder="password"
                 className="input input-bordered"
               />
@@ -48,9 +69,7 @@ function Index({}: Props) {
           </div>
 
           <div className="card-actions justify-around py-5">
-            {/* <Link to="/logreg/createpitch"> */}
             <button className="btn btn-primary ">Register</button>
-            {/* </Link> */}
           </div>
         </Form>
       </div>
