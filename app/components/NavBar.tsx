@@ -1,5 +1,7 @@
 import React from "react";
-import { Link } from "@remix-run/react"
+import { Link, useNavigate } from "@remix-run/react";
+import { authenticator } from "~/services/auth.server";
+import { redirect } from "@remix-run/node";
 
 type Props = {};
 
@@ -64,7 +66,7 @@ function NavBar({}: Props) {
                 </ul>
               </li>
               <li>
-                <a>Logout</a>
+                <Link to="/logout">Logout</Link>
               </li>
             </ul>
           </div>

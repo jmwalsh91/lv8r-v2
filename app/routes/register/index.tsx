@@ -1,28 +1,26 @@
 import { Form, Link } from "@remix-run/react";
 import React, { FieldsetHTMLAttributes } from "react";
-import { ActionFunction, FormData, LoaderFunction, redirect } from "@remix-run/node";
+import type { ActionFunction } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
 import { registerSubmit } from "~/utilities/register";
 import { ApiError } from "@supabase/supabase-js";
 import { authenticator } from "~/services/auth.server";
 
-//Action: Form submission. 
+//Action: Form submission.
 //Get formData from request and pass form object to registerSubmit function, return result of registerSubmit
-export const action: ActionFunction = async ({request}) => {
+export const action: ActionFunction = async ({ request }) => {
+  let form: Object = await request.clone().formData();
+  let user: string | ApiError | undefined = await registerSubmit({ form });
 
-  let form: Object = await request.formData()
-  let user: string | ApiError | undefined = await registerSubmit({form})
-  console.log("user is")
   if (user) {
-    console.log("typeof user is" + typeof user)
-    return authenticator.authenticate('sb', request, {
+    return authenticator.authenticate("sb", request, {
       successRedirect: `register/${user}`,
-      failureRedirect: '/',
-    })
-  } else return redirect('/')
-}
+      failureRedirect: "/",
+    });
+  } else return redirect("/");
+};
 
 //Loader:
-
 
 type Props = {};
 
@@ -49,7 +47,7 @@ function Index({}: Props) {
               <span>Password</span>
               <input
                 type="password"
-                name="password1"
+                name="password"
                 placeholder="password"
                 className="input input-bordered"
               />
@@ -71,9 +69,7 @@ function Index({}: Props) {
           </div>
 
           <div className="card-actions justify-around py-5">
-            
             <button className="btn btn-primary ">Register</button>
-    
           </div>
         </Form>
       </div>
