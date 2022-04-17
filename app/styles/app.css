@@ -1041,6 +1041,52 @@ html {
   justify-content: flex-end;
 }
 
+.select {
+  display: inline-flex;
+  flex-shrink: 0;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+   -ms-user-select: none;
+       user-select: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  height: 3rem;
+  padding-left: 1rem;
+  padding-right: 2.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  line-height: 2;
+  min-height: 3rem;
+  border-width: 1px;
+  border-color: hsl(var(--bc) / var(--tw-border-opacity));
+  --tw-border-opacity: 0;
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--b1) / var(--tw-bg-opacity));
+  font-weight: 600;
+  transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: var(--rounded-btn, 0.5rem);
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: calc(100% - 20px) calc(1px + 50%), calc(100% - 16px) calc(1px + 50%);
+  background-size: 4px 4px, 4px 4px;
+  background-repeat: no-repeat;
+}
+
+.select-disabled, .select[disabled] {
+  pointer-events: none;
+  cursor: not-allowed;
+  --tw-border-opacity: 1;
+  border-color: hsl(var(--b2, var(--b1)) / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--b2, var(--b1)) / var(--tw-bg-opacity));
+  --tw-text-opacity: 0.2;
+}
+
 .table {
   position: relative;
   text-align: left;
@@ -1879,6 +1925,31 @@ html {
   }
 }
 
+.select:focus {
+  outline: 2px solid hsla(var(--bc) / 0.2);
+  outline-offset: 2px;
+}
+
+.select-disabled::-moz-placeholder, .select[disabled]::-moz-placeholder {
+  color: hsl(var(--bc) / var(--tw-placeholder-opacity));
+  --tw-placeholder-opacity: 0.2;
+}
+
+.select-disabled:-ms-input-placeholder, .select[disabled]:-ms-input-placeholder {
+  color: hsl(var(--bc) / var(--tw-placeholder-opacity));
+  --tw-placeholder-opacity: 0.2;
+}
+
+.select-disabled::placeholder, .select[disabled]::placeholder {
+  color: hsl(var(--bc) / var(--tw-placeholder-opacity));
+  --tw-placeholder-opacity: 0.2;
+}
+
+.select-multiple, .select[multiple], .select[size].select:not([size="1"]) {
+  background-image: none;
+  padding-right: 1rem;
+}
+
 .table :where(th, td) {
   white-space: nowrap;
   padding: 1rem;
@@ -2097,54 +2168,6 @@ html {
 
 .hidden {
   display: none;
-}
-
-.h-\[90vh\] {
-  height: 90vh;
-}
-
-.h-\[calc\(100\%_-_2rem\)\] {
-  height: calc(100% - 2rem);
-}
-
-.h-\[calc\(100\%_-_10rem\)\] {
-  height: calc(100% - 10rem);
-}
-
-.h-\[calc\(100\%-10rem\)\] {
-  height: calc(100% - 10rem);
-}
-
-.h-\[calc\(100\%\)\] {
-  height: calc(100%);
-}
-
-.h-\[calc\(100vh_-_2rem\)\] {
-  height: calc(100vh - 2rem);
-}
-
-.h-\[calc\(100vh_-_1\.8rem\)\] {
-  height: calc(100vh - 1.8rem);
-}
-
-.h-\[calc\(100vh_-_3rem\)\] {
-  height: calc(100vh - 3rem);
-}
-
-.h-\[calc\(100vh_-_3\.5rem\)\] {
-  height: calc(100vh - 3.5rem);
-}
-
-.h-\[calc\(100vh_-_3\.6rem\)\] {
-  height: calc(100vh - 3.6rem);
-}
-
-.h-\[calc\(100vh_-_3\.7rem\)\] {
-  height: calc(100vh - 3.7rem);
-}
-
-.h-\[calc\(100vh_-_3\.8rem\)\] {
-  height: calc(100vh - 3.8rem);
 }
 
 .h-\[calc\(100vh_-_4rem\)\] {

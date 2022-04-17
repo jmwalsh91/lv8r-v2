@@ -1,25 +1,39 @@
 import React from "react";
 import { Form, Link, useActionData } from "@remix-run/react";
-import type { LoaderFunction, ActionFunction } from "@remix-run/node";
+import { LoaderFunction, ActionFunction, redirect } from "@remix-run/node";
 import { authenticator, supabaseStrategy } from "~/services/auth.server";
+import { getUsername } from "~/utilities/getUsername";
 
 //TODO: Validation and Error Handling
 //TODO: ^^ Optimistic UI.
 //TODO: Login should not have props, do not use FC typing so we can avoid introducing typed children. Determine best practice and refactor.
 
 //Loader: Check session on page load, if session exists: redirect to dashboard
-export const loader: LoaderFunction = async({ request }) => 
-    supabaseStrategy.checkSession(request, {
-        successRedirect: '/dashboard'
-    })
+export const loader: LoaderFunction = async ({ request }) =>
+  supabaseStrategy.checkSession(request, {
+    successRedirect: "/dashboard",
+  });
 
-//Action: Call authenticate method of authenticator instatiated in auth.server, which will call supabase client signUp function. Success: nav to user's dashboard, failure: reload login page.
-export const action: ActionFunction = async({ request }) =>
+ //Action: Call authenticate method of authenticator instatiated in auth.server, which will call supabase client signUp function. Success: nav to user's dashboard, failure: reload login page.
+ export const action: ActionFunction = async({ request }) =>
   authenticator.authenticate('sb', request, {
     successRedirect: '/dashboard',
     failureRedirect: '/login',
-  })
+  }) 
 
+/* export const action: ActionFunction = async ({ request }) => {
+  let authUser: any | null = await authenticator.authenticate("sb", request);
+  if (authUser && typeof authUser === "object") {
+    console.log(authUser.user.id);
+    let username = await getUsername(authUser.user.id)
+    //TODO: handle case where user abandoned "user creation" after registering, where id exists but username and bio do not.
+    return redirect(`/dashboard/${username}`);
+  }
+  if (!authUser) {
+    console.log("Failed to authenticate");
+    return redirect("/login");
+  }
+}; */
 
 function Login() {
   return (
@@ -61,7 +75,7 @@ function Login() {
             </button>
           </div>
         </Form>
-  
+
         <Link to="/register">
           <button className="btn btn-ghost">Register</button>
         </Link>

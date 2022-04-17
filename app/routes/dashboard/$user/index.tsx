@@ -14,7 +14,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const session = await supabaseStrategy.checkSession(request);
   //Redirect to homepage, user is not authenticated & session does not exist
   if (!session) {
-    alert("Your session has expired. Please log in.");
+    console.log("Your session has expired. Please log in.");
     return redirect("/");
   }
   //TODO: if session does exist, do we want to simply prefetch User from db for Make Pitch, and prefetch User's pitch for Edit Pitch?
