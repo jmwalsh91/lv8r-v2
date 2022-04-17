@@ -1,7 +1,7 @@
 import { LoaderFunction, redirect } from "@remix-run/node";
 import React from "react";
 import { supabaseStrategy } from "~/services/auth.server";
-import { getUsername } from "~/utilities/getUsername"
+import { getUsername } from "~/utilities/getUserInfo"
 
 
 //Check session and if session exists, get username from db-Users where owner id matches Auth User id, pass result as slug

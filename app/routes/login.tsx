@@ -1,25 +1,24 @@
 import React from "react";
-import { Form, Link, useActionData } from "@remix-run/react";
-import { LoaderFunction, ActionFunction, redirect } from "@remix-run/node";
+import { Form, Link } from "@remix-run/react";
+import type { LoaderFunction, ActionFunction } from "@remix-run/node";
 import { authenticator, supabaseStrategy } from "~/services/auth.server";
-import { getUsername } from "~/utilities/getUsername";
 
 //TODO: Validation and Error Handling
 //TODO: ^^ Optimistic UI.
 //TODO: Login should not have props, do not use FC typing so we can avoid introducing typed children. Determine best practice and refactor.
 
-//Loader: Check session on page load, if session exists: redirect to dashboard
+//Loader: Check session on page load, if session exists: redirect to dashboard, where dashboard loader will check session.
 export const loader: LoaderFunction = async ({ request }) =>
   supabaseStrategy.checkSession(request, {
     successRedirect: "/dashboard",
   });
 
- //Action: Call authenticate method of authenticator instatiated in auth.server, which will call supabase client signUp function. Success: nav to user's dashboard, failure: reload login page.
- export const action: ActionFunction = async({ request }) =>
-  authenticator.authenticate('sb', request, {
-    successRedirect: '/dashboard',
-    failureRedirect: '/login',
-  }) 
+//Action: Call authenticate method of authenticator instatiated in auth.server, which will call supabase client signIn function. Success: nav to user's dashboard, failure: reload login page.
+export const action: ActionFunction = async ({ request }) =>
+  authenticator.authenticate("sb", request, {
+    successRedirect: "/dashboard",
+    failureRedirect: "/login",
+  });
 
 /* export const action: ActionFunction = async ({ request }) => {
   let authUser: any | null = await authenticator.authenticate("sb", request);
