@@ -1,4 +1,5 @@
 import { isErrorResponse } from "@remix-run/react/data";
+import { UserObj } from "~/interfaces";
 import { dbClient } from "~/services/dbClient";
 
 export const getUsername = async (userId: string ) => {
@@ -18,6 +19,7 @@ let idArg = userId
   };
   
   export const getUser = async (paramsUsername: string | undefined ) => {
+    let user: UserObj
     if (paramsUsername) {
       let usernameFromLoader: string = paramsUsername
         console.log(usernameFromLoader)
@@ -25,12 +27,14 @@ let idArg = userId
         let {data, error} = await dbClient.from("Users")
         .select("id, username, bio, pitch, encountered_pitches, received_cards, sent_cards, owner")
         .match({username: `${usernameFromLoader}`})
-        console.log("data")
-        console.log(data?.[0]);
+
+        
+        user = data?.[0]
+        console.log(user)
         //if error TODO: throw authorizationError
         if (error) return console.log(error)
         //if data return data
-        if (data) return data[0]
+        if (data) return user
     } else throw Error 
 
       };

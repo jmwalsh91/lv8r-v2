@@ -1,5 +1,4 @@
 import { dbClient } from "~/services/dbClient";
-import { AuthorizationError } from "remix-auth";
 
 export const createUser = async ({ form }) => {
   //Values from formData
