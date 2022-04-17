@@ -1,37 +1,40 @@
 import React, { ReactEventHandler } from "react";
 import { Form, Link, useActionData, useLoaderData } from "@remix-run/react";
-import {
+import type {
   LoaderFunction,
-  ActionFunction,
-  json,
-  redirect,
-} from "@remix-run/node";
+  ActionFunction}
+from "@remix-run/node";
+import { redirect } from "@remix-run/node";
 import { authenticator, supabaseStrategy } from "~/services/auth.server";
+import { getUser } from "~/utilities/getUserInfo";
+import type { UserObj } from "~/interfaces";
 
 //Loader:
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async ({ params, request }) => {
+  //
+  let paramsUsername: string | undefined = await params.user;
   //Check session, if session exists refresh token and return session object
   const session = await supabaseStrategy.checkSession(request);
+
   //Redirect to homepage, user is not authenticated & session does not exist
   if (!session) {
-    alert("Your session has expired. Please log in.");
+    console.log("TODO: error: Your session has expired. Please log in.");
     return redirect("/");
   }
-  //TODO: if session does exist, do we want to simply prefetch User from db for Make Pitch, and prefetch User's pitch for Edit Pitch?
-  else return json(session.user);
+  //get User from db, to have access to username, pitchId, cardId, etc.
+  if (paramsUsername && session) {
+    let userObject: UserObj | void = await getUser(paramsUsername);
+    return userObject;
+  } else return console.error();
+  
 };
 
-// Action: TO DO
-export const action: ActionFunction = async ({ request }) => {
-  /*  await authenticator.logout(request, { redirectTo: "/login" }); */
-  return "todo";
-};
 //TODO: Interface for user from sessions, pass props to routes to prefetch data
 type Props = {};
 
 function UserIndex({}: Props) {
   //TODO: type declarations
-  const sesh = useLoaderData();
+  const currentUser: UserObj | void = useLoaderData();
 
   const handleClick: ReactEventHandler = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -43,9 +46,11 @@ function UserIndex({}: Props) {
   return (
     <div>
       <div className="text-3xl text-secondary">
-        This is the dashboard of /$user
-        {sesh.email}
+        This is the dashboard of
+        {currentUser?.username}
       </div>
+      <div className="text-primary text-lg">{currentUser?.bio}</div>
+      <div className="text-primary text-lg">{currentUser?.owner}</div>
       <div className="btn btn-accent" onClick={(e) => handleClick(e)}>
         Click me please
       </div>
