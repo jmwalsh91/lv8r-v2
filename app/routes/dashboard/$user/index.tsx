@@ -44,17 +44,17 @@ function UserIndex({}: Props) {
   };
   //TODO: Dashboard UI
   return (
-    <div>
-      <div className="text-3xl text-secondary">
-        This is the dashboard of
-        {currentUser?.username}
-      </div>
-      <div className="text-primary text-lg">{currentUser?.bio}</div>
-      <div className="text-primary text-lg">{currentUser?.owner}</div>
-      <div className="btn btn-accent" onClick={(e) => handleClick(e)}>
-        Click me please
-      </div>
-    </div>
+     <div className="flex flex-col">
+      <div className="flex flex-row ">
+  <img className="mask mask-parallelogram shadow-xl" src="https://api.lorem.space/image/shoes?w=160&h=160" />
+  <img className="mask mask-parallelogram shadow-xl" src="https://api.lorem.space/image/shoes?w=160&h=160" />
+  <img className="mask mask-parallelogram shadow-xl" src="https://api.lorem.space/image/shoes?w=160&h=160" />
+</div> 
+<section className="card bg-primary h-[60vh] w-[80vw]">oh hi</section>
+
+   
+ 
+  </div>
   );
 }
 
