@@ -8,6 +8,9 @@ import { redirect } from "@remix-run/node";
 import { authenticator, supabaseStrategy } from "~/services/auth.server";
 import { getUser } from "~/utilities/getUserInfo";
 import type { UserObj } from "~/interfaces";
+import Stats from "~/components/info/Stats";
+
+
 
 //Loader:
 export const loader: LoaderFunction = async ({ params, request }) => {
@@ -44,17 +47,21 @@ function UserIndex({}: Props) {
   };
   //TODO: Dashboard UI
   return (
-     <div className="flex flex-col">
-      <div className="flex flex-row ">
-  <img className="mask mask-parallelogram shadow-xl" src="https://api.lorem.space/image/shoes?w=160&h=160" />
-  <img className="mask mask-parallelogram shadow-xl" src="https://api.lorem.space/image/shoes?w=160&h=160" />
-  <img className="mask mask-parallelogram shadow-xl" src="https://api.lorem.space/image/shoes?w=160&h=160" />
-</div> 
-<section className="card bg-neutral h-[60vh] w-[80vw] shadow-xl">
+     <div className="flex flex-col border-black border-3 gap-3">
+
+
+
+<section className="card bg-base-100 w-[80vw] h-[50vh] flex flex-col justify-around shadow-md shadow-orange">  <div className="btn btn-circle btn-outline w-16 shadow-md bg-base-100 shadow-base-500">Edit</div>
   <p className="text text-3xl text-center text-base-100">Oh hi there</p>
-  <div className="btn btn-primary btn-circle shadow-xl shadow-accent ring-black">Click</div>
+  <div className="flex w-full">
+  <div className="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center">content</div>
+  <div className="divider divider-horizontal">LV8R</div>
+  <div className="grid h-20 flex-grow card bg-white rounded-box place-items-center">content</div>
+</div>
   <div className="btn btn-primary">Click</div>
-</section>
+  </section>
+  <Stats/>
+
 
    
  
