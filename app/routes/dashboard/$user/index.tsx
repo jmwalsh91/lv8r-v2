@@ -50,7 +50,11 @@ function UserIndex({}: Props) {
   <img className="mask mask-parallelogram shadow-xl" src="https://api.lorem.space/image/shoes?w=160&h=160" />
   <img className="mask mask-parallelogram shadow-xl" src="https://api.lorem.space/image/shoes?w=160&h=160" />
 </div> 
-<section className="card bg-primary h-[60vh] w-[80vw]">oh hi</section>
+<section className="card bg-neutral h-[60vh] w-[80vw] shadow-xl">
+  <p className="text text-3xl text-center text-base-100">Oh hi there</p>
+  <div className="btn btn-primary btn-circle shadow-xl shadow-accent ring-black">Click</div>
+  <div className="btn btn-primary">Click</div>
+</section>
 
    
  
