@@ -10,6 +10,7 @@ import { getUser } from "~/utilities/getUserInfo";
 import type { UserObj } from "~/interfaces";
 import Stats from "~/components/info/Stats";
 import OpenButton from "~/components/buttons/OpenButton";
+import QuickProfile from "~/components/info/QuickProfile";
 
 
 
@@ -38,7 +39,7 @@ type Props = {};
 
 function UserIndex({}: Props) {
   //TODO: type declarations
-  const currentUser: UserObj | void = useLoaderData();
+  const currentUser: UserObj = useLoaderData();
 
   const handleClick: ReactEventHandler = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -52,16 +53,18 @@ function UserIndex({}: Props) {
 
 
 
-<section className="card bg-base-100 w-[80vw] h-[50vh] flex flex-col justify-around shadow-md shadow-orange"> 
-<Outlet/>
- <div className="btn btn-outline w-16 shadow-md bg-base-100 shadow-base-500">Edit</div>
+<section className="card bg-base-100 w-[80vw] h-[50vh] flex flex-col justify-around shadow-md shadow-orange">
+<QuickProfile currentUser={currentUser}/>
+{/*  <div className="btn btn-outline w-16 shadow-md bg-base-100 shadow-base-500">Edit</div> */}
   <p className="text sm:text-xl md:text-3xl text-center text-primary">You have no notifications</p>
-  <div className="flex w-full">
+{/*   <div className="flex w-full">
   <div className="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center">content</div>
   <div className="divider divider-horizontal">LV8R</div>
   <div className="grid h-20 flex-grow card bg-white rounded-box place-items-center">content</div>
-</div>
+</div> */}
+<section key="dashActions" className="flex flex-row justify-around">
 <OpenButton color="none"/>
+</section>
   </section>
   <Stats/>
 
