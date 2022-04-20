@@ -1,6 +1,7 @@
 export interface UserObj  {
        id: Number
        username: string,
+       category: string,
        bio: string,
        pitch: Number | null,
        encountered_pitches: Array<Number>,

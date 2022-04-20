@@ -42,6 +42,7 @@ function RegisterUsername({}: /* params */ Props) {
                 className="input input-bordered"
               />
             </div>
+
             <div>
               <label className="input-group input-group-vertical">
                 <span>Bio</span>
@@ -51,6 +52,20 @@ function RegisterUsername({}: /* params */ Props) {
                   maxLength={200}
                   name="bio"
                 ></textarea>
+              </label>
+            </div>
+            <div className="form-control card bg-black ">
+              <label className="cursor-pointer label flex-row justify-around gap-2">
+                <span className="label-text text-neutral text-lg">
+                  Have a project?
+                </span>
+                <input
+                  type="checkbox"
+                  name="category"
+                  value="maker"
+                  defaultChecked={false}
+                  className="checkbox checkbox-primary shadow-lg"
+                />
               </label>
             </div>
             <div className="container flex-col justify-end">
