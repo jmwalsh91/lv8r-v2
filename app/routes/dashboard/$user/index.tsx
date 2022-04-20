@@ -14,6 +14,7 @@ import type { UserObj } from "~/interfaces";
 import Stats from "~/components/info/Stats";
 import OpenButton from "~/components/buttons/OpenButton";
 import QuickProfile from "~/components/info/QuickProfile";
+import { motion } from "framer-motion";
 
 //Loader:
 export const loader: LoaderFunction = async ({ params, request }) => {
@@ -62,7 +63,9 @@ function UserIndex({}: Props) {
   <div className="grid h-20 flex-grow card bg-white rounded-box place-items-center">content</div>
 </div> */}
         <section key="dashActions" className="flex flex-row justify-around">
+          <motion.div whileHover={{scale: 1.2}}>
           <OpenButton color="none" />
+          </motion.div>
         </section>
       </section>
       <Stats />
