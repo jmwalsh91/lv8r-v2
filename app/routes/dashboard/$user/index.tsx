@@ -1,5 +1,5 @@
 import React, { ReactEventHandler } from "react";
-import { Form, Link, useActionData, useLoaderData } from "@remix-run/react";
+import { Form, Link, Outlet, useActionData, useLoaderData } from "@remix-run/react";
 import type {
   LoaderFunction,
   ActionFunction}
@@ -51,9 +51,9 @@ function UserIndex({}: Props) {
      <div className="flex flex-col border-black border-3 gap-3">
 
 
-<OpenButton color="none"/>
-<section className="card bg-base-100 w-[80vw] h-[50vh] flex flex-col justify-around shadow-md shadow-orange"> 
 
+<section className="card bg-base-100 w-[80vw] h-[50vh] flex flex-col justify-around shadow-md shadow-orange"> 
+<Outlet/>
  <div className="btn btn-outline w-16 shadow-md bg-base-100 shadow-base-500">Edit</div>
   <p className="text sm:text-xl md:text-3xl text-center text-primary">You have no notifications</p>
   <div className="flex w-full">
@@ -61,7 +61,7 @@ function UserIndex({}: Props) {
   <div className="divider divider-horizontal">LV8R</div>
   <div className="grid h-20 flex-grow card bg-white rounded-box place-items-center">content</div>
 </div>
-  <div className="btn btn-primary w-24">discover</div>
+<OpenButton color="none"/>
   </section>
   <Stats/>
 
