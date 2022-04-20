@@ -52,9 +52,9 @@ function UserIndex({}: Props) {
      <div className="flex flex-col border-black border-3 gap-3">
 
 
-
-<section className="card bg-base-100 w-[80vw] h-[50vh] flex flex-col justify-around shadow-md shadow-orange">
 <QuickProfile currentUser={currentUser}/>
+<section className="card bg-base-100 w-[80vw] h-[50vh] flex flex-col justify-around shadow-md shadow-orange">
+
 {/*  <div className="btn btn-outline w-16 shadow-md bg-base-100 shadow-base-500">Edit</div> */}
   <p className="text sm:text-xl md:text-3xl text-center text-primary">You have no notifications</p>
 {/*   <div className="flex w-full">
