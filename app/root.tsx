@@ -6,7 +6,9 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLocation,
 } from "@remix-run/react";
+import { motion, AnimatePresence } from "framer-motion";
 import Foundation from "./components/Foundation";
 import NavBar from "./components/NavBar";
 import styles from "./styles/app.css"
@@ -31,7 +33,22 @@ export default function App() {
      <body>
        <NavBar/>
        <Foundation>
+
+         {/* TODO: navigation is still taking place before the exit animation is done executing. This is likely because animatePresence's exitBeforeEnter relies on the React Dom to prevent the component from unmounting, while remix and the browser can perform navigation events independent of the React Dom. A solution may be to useTransition from Remix-Run/React in a conditional and have the transition state include the exit opacity */ }
+
+       <AnimatePresence exitBeforeEnter >
+          <motion.main
+            key={useLocation().key}
+            initial={{opacity: 0 }}
+            animate={{ x: "0", opacity: 1 }}
+            exit={{opacity: 0 }}
+            transition={{duration: .5}}
+            
+          >
+            
         <Outlet />
+        </motion.main>
+        </AnimatePresence>
         </Foundation>
         <ScrollRestoration />
         <Scripts />
