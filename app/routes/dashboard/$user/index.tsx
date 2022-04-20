@@ -1,5 +1,5 @@
 import React, { ReactEventHandler } from "react";
-import { Form, Link, useActionData, useLoaderData } from "@remix-run/react";
+import { Form, Link, Outlet, useActionData, useLoaderData } from "@remix-run/react";
 import type {
   LoaderFunction,
   ActionFunction}
@@ -8,6 +8,11 @@ import { redirect } from "@remix-run/node";
 import { authenticator, supabaseStrategy } from "~/services/auth.server";
 import { getUser } from "~/utilities/getUserInfo";
 import type { UserObj } from "~/interfaces";
+import Stats from "~/components/info/Stats";
+import OpenButton from "~/components/buttons/OpenButton";
+import QuickProfile from "~/components/info/QuickProfile";
+
+
 
 //Loader:
 export const loader: LoaderFunction = async ({ params, request }) => {
@@ -34,7 +39,7 @@ type Props = {};
 
 function UserIndex({}: Props) {
   //TODO: type declarations
-  const currentUser: UserObj | void = useLoaderData();
+  const currentUser: UserObj = useLoaderData();
 
   const handleClick: ReactEventHandler = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -44,17 +49,29 @@ function UserIndex({}: Props) {
   };
   //TODO: Dashboard UI
   return (
-    <div>
-      <div className="text-3xl text-secondary">
-        This is the dashboard of
-        {currentUser?.username}
-      </div>
-      <div className="text-primary text-lg">{currentUser?.bio}</div>
-      <div className="text-primary text-lg">{currentUser?.owner}</div>
-      <div className="btn btn-accent" onClick={(e) => handleClick(e)}>
-        Click me please
-      </div>
-    </div>
+     <div className="flex flex-col border-black border-3 gap-3">
+
+
+<QuickProfile currentUser={currentUser}/>
+<section className="card bg-base-100 w-[80vw] h-[50vh] flex flex-col justify-around shadow-md shadow-orange">
+
+{/*  <div className="btn btn-outline w-16 shadow-md bg-base-100 shadow-base-500">Edit</div> */}
+  <p className="text sm:text-xl md:text-3xl text-center text-primary">You have no notifications</p>
+{/*   <div className="flex w-full">
+  <div className="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center">content</div>
+  <div className="divider divider-horizontal">LV8R</div>
+  <div className="grid h-20 flex-grow card bg-white rounded-box place-items-center">content</div>
+</div> */}
+<section key="dashActions" className="flex flex-row justify-around">
+<OpenButton color="none"/>
+</section>
+  </section>
+  <Stats/>
+
+
+   
+ 
+  </div>
   );
 }
 
