@@ -25,7 +25,7 @@ let idArg = userId
         console.log(usernameFromLoader)
         //get User's username where email returned from authenticator matches User's email.
         let {data, error} = await dbClient.from("Users")
-        .select("id, username, bio, pitch, encountered_pitches, received_cards, sent_cards, owner")
+        .select("id, username, category, bio, pitch, encountered_pitches, received_cards, sent_cards, owner")
         .match({username: `${usernameFromLoader}`})
 
         
