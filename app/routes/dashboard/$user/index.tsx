@@ -9,6 +9,7 @@ import { authenticator, supabaseStrategy } from "~/services/auth.server";
 import { getUser } from "~/utilities/getUserInfo";
 import type { UserObj } from "~/interfaces";
 import Stats from "~/components/info/Stats";
+import OpenButton from "~/components/buttons/OpenButton";
 
 
 
@@ -50,15 +51,17 @@ function UserIndex({}: Props) {
      <div className="flex flex-col border-black border-3 gap-3">
 
 
+<OpenButton color="none"/>
+<section className="card bg-base-100 w-[80vw] h-[50vh] flex flex-col justify-around shadow-md shadow-orange"> 
 
-<section className="card bg-base-100 w-[80vw] h-[50vh] flex flex-col justify-around shadow-md shadow-orange">  <div className="btn btn-circle btn-outline w-16 shadow-md bg-base-100 shadow-base-500">Edit</div>
-  <p className="text text-3xl text-center text-base-100">Oh hi there</p>
+ <div className="btn btn-outline w-16 shadow-md bg-base-100 shadow-base-500">Edit</div>
+  <p className="text sm:text-xl md:text-3xl text-center text-primary">You have no notifications</p>
   <div className="flex w-full">
   <div className="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center">content</div>
   <div className="divider divider-horizontal">LV8R</div>
   <div className="grid h-20 flex-grow card bg-white rounded-box place-items-center">content</div>
 </div>
-  <div className="btn btn-primary">Click</div>
+  <div className="btn btn-primary w-24">discover</div>
   </section>
   <Stats/>
 
