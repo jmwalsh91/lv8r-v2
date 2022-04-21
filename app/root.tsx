@@ -12,10 +12,10 @@ import type { LazyFeatureBundle } from "framer-motion/types/components/LazyMotio
 import { m, AnimatePresence, LazyMotion } from "framer-motion";
 import Foundation from "./components/Foundation";
 import NavBar from "./components/NavBar";
-import styles from "./styles/app.css"
+import styles from "./styles/app.css";
 
 export function links() {
-  return [{ rel: "stylesheet", href: styles }]
+  return [{ rel: "stylesheet", href: styles }];
 }
 
 export const meta: MetaFunction = () => ({
@@ -26,13 +26,6 @@ export const meta: MetaFunction = () => ({
 
 
 
-const loadFeatures: LazyFeatureBundle | any = import("./utilities/features.js")
-    .then(res => res.default )
-  
-    
-
-
-
 export default function App() {
   return (
     <html lang="en">
@@ -40,26 +33,13 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-     <body>
-       <NavBar/>
-       <Foundation>
+      <body>
+        <NavBar />
+        <Foundation>
 
-         {/* TODO: navigation is still taking place before the exit animation is done executing. This is likely because animatePresence's exitBeforeEnter relies on the React Dom to prevent the component from unmounting, while remix and the browser can perform navigation events independent of the React Dom. A solution may be to useTransition from Remix-Run/React in a conditional and have the transition state include the exit opacity */ }
-        <LazyMotion features={loadFeatures}>
-       <AnimatePresence exitBeforeEnter initial={false} >
-          <m.main
-            key={useLocation().key}
-            initial={{opacity: 0 }}
-            animate={{ x: "0", opacity: 1 }}
-            /* exit={{opacity: 0 }} */
-            transition={{duration: .5}}
             
-          >
-            
-        <Outlet />
-        </m.main>
-        </AnimatePresence>
-        </LazyMotion> 
+                <Outlet />
+
         </Foundation>
         <ScrollRestoration />
         <Scripts />

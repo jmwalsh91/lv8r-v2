@@ -14,7 +14,9 @@ import type { UserObj } from "~/interfaces";
 import Stats from "~/components/info/Stats";
 import OpenButton from "~/components/buttons/OpenButton";
 import QuickProfile from "~/components/info/QuickProfile";
-import { LazyMotion, domAnimation, m } from "framer-motion";
+import { domAnimation, LazyMotion, m } from "framer-motion";
+
+
 
 //Loader:
 export const loader: LoaderFunction = async ({ params, request }) => {
@@ -64,9 +66,9 @@ function UserIndex({}: Props) {
 </div> */}
         <section key="dashActions" className="flex flex-row justify-around">
           <LazyMotion features={domAnimation}>
-          <m.div whileHover={{scale: 1.2}}>
-          <OpenButton color="none" />
-          </m.div>
+            <m.div whileHover={{ scale: 1.2 }}>
+              <OpenButton color="none" />
+            </m.div>
           </LazyMotion>
         </section>
       </section>
