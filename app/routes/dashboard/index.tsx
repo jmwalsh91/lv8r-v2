@@ -13,7 +13,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 function index() {
   return (
-    <div>
+    <div className="hidden">
       <div className="text-primary text-3xl">
         We're making sure everything is alright.
       </div>

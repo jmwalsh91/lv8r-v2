@@ -1,19 +1,16 @@
 import React, { ReactEventHandler } from "react";
 import {
-  Form,
-  Link,
-  Outlet,
-  useActionData,
   useLoaderData,
 } from "@remix-run/react";
-import type { LoaderFunction, ActionFunction } from "@remix-run/node";
+import type { LoaderFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
-import { authenticator, supabaseStrategy } from "~/services/auth.server";
+import { supabaseStrategy } from "~/services/auth.server";
 import { getUser } from "~/utilities/getUserInfo";
 import type { UserObj } from "~/interfaces";
 import Stats from "~/components/info/Stats";
 import OpenButton from "~/components/buttons/OpenButton";
 import QuickProfile from "~/components/info/QuickProfile";
+import { domAnimation, LazyMotion, m } from "framer-motion";
 
 //Loader:
 export const loader: LoaderFunction = async ({ params, request }) => {
@@ -53,7 +50,7 @@ function UserIndex({}: Props) {
       <QuickProfile currentUser={currentUser} />
       <section className="card bg-base-100 w-[80vw] h-[50vh] flex flex-col justify-around shadow-md shadow-orange">
         {/*  <div className="btn btn-outline w-16 shadow-md bg-base-100 shadow-base-500">Edit</div> */}
-        <p className="text sm:text-xl md:text-3xl text-center text-primary">
+        <p className="text sm:text-xl md:text-3xl text-center text-primary ">
           You have no notifications
         </p>
         {/*   <div className="flex w-full">
@@ -62,7 +59,11 @@ function UserIndex({}: Props) {
   <div className="grid h-20 flex-grow card bg-white rounded-box place-items-center">content</div>
 </div> */}
         <section key="dashActions" className="flex flex-row justify-around">
-          <OpenButton color="none" />
+          <LazyMotion features={domAnimation}>
+            <m.div whileHover={{ scale: 1.2 }}>
+              <OpenButton color="none" />
+            </m.div>
+          </LazyMotion>
         </section>
       </section>
       <Stats />

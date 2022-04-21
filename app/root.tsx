@@ -9,10 +9,10 @@ import {
 } from "@remix-run/react";
 import Foundation from "./components/Foundation";
 import NavBar from "./components/NavBar";
-import styles from "./styles/app.css"
+import styles from "./styles/app.css";
 
 export function links() {
-  return [{ rel: "stylesheet", href: styles }]
+  return [{ rel: "stylesheet", href: styles }];
 }
 
 export const meta: MetaFunction = () => ({
@@ -28,10 +28,10 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-     <body>
-       <NavBar/>
-       <Foundation>
-        <Outlet />
+      <body>
+        <NavBar />
+        <Foundation>
+          <Outlet />
         </Foundation>
         <ScrollRestoration />
         <Scripts />
