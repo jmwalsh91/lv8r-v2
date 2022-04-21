@@ -41,7 +41,7 @@ export default function App() {
             key={useLocation().key}
             initial={{opacity: 0 }}
             animate={{ x: "0", opacity: 1 }}
-            exit={{opacity: 0 }}
+            /* exit={{opacity: 0 }} */
             transition={{duration: .5}}
             
           >
