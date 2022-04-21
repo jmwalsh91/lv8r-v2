@@ -36,7 +36,7 @@ export default function App() {
 
          {/* TODO: navigation is still taking place before the exit animation is done executing. This is likely because animatePresence's exitBeforeEnter relies on the React Dom to prevent the component from unmounting, while remix and the browser can perform navigation events independent of the React Dom. A solution may be to useTransition from Remix-Run/React in a conditional and have the transition state include the exit opacity */ }
         <LazyMotion features={domAnimation}>
-       <AnimatePresence exitBeforeEnter >
+       <AnimatePresence exitBeforeEnter initial={false} >
           <m.main
             key={useLocation().key}
             initial={{opacity: 0 }}
