@@ -6,10 +6,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLocation,
 } from "@remix-run/react";
-import type { LazyFeatureBundle } from "framer-motion/types/components/LazyMotion/types";
-import { m, AnimatePresence, LazyMotion } from "framer-motion";
 import Foundation from "./components/Foundation";
 import NavBar from "./components/NavBar";
 import styles from "./styles/app.css";
@@ -24,8 +21,6 @@ export const meta: MetaFunction = () => ({
   viewport: "width=device-width,initial-scale=1",
 });
 
-
-
 export default function App() {
   return (
     <html lang="en">
@@ -36,10 +31,7 @@ export default function App() {
       <body>
         <NavBar />
         <Foundation>
-
-            
-                <Outlet />
-
+          <Outlet />
         </Foundation>
         <ScrollRestoration />
         <Scripts />

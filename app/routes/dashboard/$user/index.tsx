@@ -1,22 +1,16 @@
 import React, { ReactEventHandler } from "react";
 import {
-  Form,
-  Link,
-  Outlet,
-  useActionData,
   useLoaderData,
 } from "@remix-run/react";
-import type { LoaderFunction, ActionFunction } from "@remix-run/node";
+import type { LoaderFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
-import { authenticator, supabaseStrategy } from "~/services/auth.server";
+import { supabaseStrategy } from "~/services/auth.server";
 import { getUser } from "~/utilities/getUserInfo";
 import type { UserObj } from "~/interfaces";
 import Stats from "~/components/info/Stats";
 import OpenButton from "~/components/buttons/OpenButton";
 import QuickProfile from "~/components/info/QuickProfile";
 import { domAnimation, LazyMotion, m } from "framer-motion";
-
-
 
 //Loader:
 export const loader: LoaderFunction = async ({ params, request }) => {
