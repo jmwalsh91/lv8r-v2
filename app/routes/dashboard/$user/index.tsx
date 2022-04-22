@@ -1,5 +1,6 @@
 import React, { ReactEventHandler } from "react";
 import {
+  Link,
   useLoaderData,
 } from "@remix-run/react";
 import type { LoaderFunction } from "@remix-run/node";
@@ -50,9 +51,17 @@ function UserIndex({}: Props) {
       <QuickProfile currentUser={currentUser} />
       <section className="card bg-base-100 w-[80vw] h-[50vh] flex flex-col justify-around shadow-md shadow-orange">
         {/*  <div className="btn btn-outline w-16 shadow-md bg-base-100 shadow-base-500">Edit</div> */}
-        <p className="text sm:text-xl md:text-3xl text-center text-primary ">
+        
+          {currentUser.category === 'maker' && currentUser.pitch === null ? 
+          <Link to="createPitch" className="place-self-center">
+            <div className="btn btn-primary ">Create your pitch!</div>
+          </Link>
+          :
+          <p className="text sm:text-xl md:text-3xl text-center text-primary "> 
           You have no notifications
-        </p>
+          </p>}
+
+        
         {/*   <div className="flex w-full">
   <div className="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center">content</div>
   <div className="divider divider-horizontal">LV8R</div>
