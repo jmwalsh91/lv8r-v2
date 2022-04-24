@@ -1,14 +1,20 @@
+import { LoaderFunction } from '@remix-run/node'
 import React from 'react'
+import { supabaseStrategy } from '~/services/auth.server';
 
 type Props = {}
-
+/* export const loader: LoaderFunction = async ({request}) => {
+    let data = await request.formData()
+    console.log(data)
+    return data
+} */
 function createPitch2({}: Props) {
   return (
     <div className="flex flex-col justify-items-center justify-center align-center">
       <div>
         <ul className="card steps rounded-2xl bg-base-100 w-full mb-3 rounded-sm">
           <li className="step step-primary ">Cover</li>
-          <li className="step-primary">Problem</li>
+          <li className="step step-primary">Problem</li>
           <li className="step">Solution</li>
           <li className="step">Demo/CTA</li>
         </ul>

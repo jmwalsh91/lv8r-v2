@@ -1,12 +1,23 @@
-import { ActionFunction } from "@remix-run/node";
-import { Form } from "@remix-run/react";
-import React from "react";
+import { ActionFunction, LoaderFunction, redirect } from "@remix-run/node";
+import { Form, Link } from "@remix-run/react";
+import { supabaseStrategy } from "~/services/auth.server";
 
+export const loader: LoaderFunction = async ({ request }) => {
+  let sessionData: any = await supabaseStrategy.checkSession(request);
+  if (sessionData !== undefined) {
+    console.log(sessionData);
+    return sessionData;
+  } else return redirect("/");
+};
 
-export const action: ActionFunction = async ({request}) => {
-//TODO: function = upload image to bucket, get image url from return
-// Access values in this page in loader on /2
-}
+export const action: ActionFunction = async ({ request }) => {
+  //TODO: function = upload image to bucket, get image url from return
+  // Access values in this page in loader on /2
+  const data = await request.formData()
+  console.log(data)
+  console.log("woo")
+  return redirect('2')
+};
 
 type Props = {};
 
@@ -25,14 +36,21 @@ function index({}: Props) {
         <p className="text text-3xl text-secondary text-center">
           Make your pitch!
         </p>
-        
-        <Form className="flex flex-col justify-center gap-8">
-       <input type="text" placeholder="Product name" className="input input-bordered input-primary w-full max-w-xs" />
 
-            <input type="file" name="image"></input> 
+        <Form encType="multipart/form-data" className="flex flex-col justify-center gap-8">
+          <input
+            type="text"
+            name="productName"
+            placeholder="Product name"
+            className="input input-bordered input-primary w-full max-w-xs"
+          />
+
+   {/* TODO: enctype on form, clone request in action so that 2's loader has access after the image upload function returns       <input type="file" name="image"></input> */}
         </Form>
       </section>
-      <button className="btn btn-primary">Next</button>
+      <Link to="2">
+        <button type="submit" className="btn btn-primary">Next</button>
+      </Link>
     </div>
   );
 }
