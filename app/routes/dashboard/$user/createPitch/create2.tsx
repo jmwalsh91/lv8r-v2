@@ -1,16 +1,25 @@
-import { LoaderFunction } from '@remix-run/node'
+import { ActionFunction, LoaderFunction, redirect } from '@remix-run/node'
 import { Form } from '@remix-run/react';
 import React from 'react'
 import { supabaseStrategy } from '~/services/auth.server';
+import { insertPageTwo } from '~/utilities/pitchUtils';
 
 type Props = {}
 export const loader: LoaderFunction = async ({request}) => {
 
 const data = request.body
-console.log("loader")
-console.log(data)
     return data
 }
+
+export const action: ActionFunction = async ({request}) => {
+  const form = await request.formData()
+  let pitchResponse = await insertPageTwo(form)
+  if (pitchResponse) {
+    return redirect('create3')
+  } else return Error("an error occurred")
+}
+
+
 function Create2({}: Props) {
   return (
     <div className="flex flex-col justify-items-center justify-center align-center">
