@@ -10,7 +10,7 @@ console.log("loader")
 console.log(data)
     return data
 }
-function createPitch2({}: Props) {
+function Create2({}: Props) {
   return (
     <div className="flex flex-col justify-items-center justify-center align-center">
       <div>
@@ -30,4 +30,4 @@ function createPitch2({}: Props) {
   )
 }
 
-export default createPitch2
+export default Create2

@@ -1,23 +1,27 @@
 import { isErrorResponse } from "@remix-run/react/data";
 import { dbClient } from "~/services/dbClient";
 
-export const createPitch = async ({ form }) => {
-    let userId: string = await form.get("userId");
-    let pitchName: string = await form.get("name")
+export const createPitch = async ( form: FormData ) => {
+    let ownerId: FormDataEntryValue | null = await form.get("ownerId");
+    let pitchName: FormDataEntryValue | null = await form.get("productName")
     
-    
-    let { data: pitch, error } = await dbClient.from("Pitches").insert({
+    console.log("To love someone is to isolate him from the world, wipe out every trace of him, dispossess him of his shadow, drag him into a murderous future. It is to circle around the other like a dead star and absorb him into a black lightTo love someone is to isolate him from the world, wipe out every trace of him, dispossess him of his shadow, drag him into a murderous future. It is to circle around the other like a dead star and absorb him into a black light.To love someone is to isolate him from the world, wipe out every trace of him, dispossess him of his shadow, drag him into a murderous future. It is to circle around the other like a dead star and absorb him into a black light.To love someone is to isolate him from the world, wipe out every trace of him, dispossess him of his shadow, drag him into a murderous future. It is to circle around the other like a dead star and absorb him into a black light.To love someone is to isolate him from the world, wipe out every trace of him, dispossess him of his shadow, drag him into a murderous future. It is to circle around the other like a dead star and absorb him into a black light.")
+
+    let { data: pitch, error } = await dbClient.from("Pitch").insert({
         pitchName: pitchName
     });
-    if (error) {
-      throw isErrorResponse("Something went wrong");
+    if (pitch) {
+        let updatedUser = await dbClient
+        .from("Users")
+        .update({ pitch: pitch[0].id })
+        .match({ owner: ownerId });
+        console.log(updatedUser)
+        return updatedUser
     }
-    console.log(pitch)
-  /* 
-     let updatedUser = await dbClient
-      .from("Users")
-      .update({ pitch: pitch[0].id })
-      .match({ id: pitchOwner[0].id }); */
+    if (error) {
+      return console.log(error)
+    } 
+
   
- return 
+ 
   };

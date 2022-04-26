@@ -2562,6 +2562,10 @@ body[dir="rtl"] .checkbox:checked,
   margin-left: 50%;
 }
 
+.isolate {
+  isolation: isolate;
+}
+
 .z-50 {
   z-index: 50;
 }

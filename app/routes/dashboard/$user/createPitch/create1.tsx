@@ -17,9 +17,9 @@ export const action: ActionFunction = async ({request}) => {
     const form: FormData = await request.formData()
     let updatedUser = await createPitch(form)
     if (updatedUser) {
-        console.log("woww")
         console.log(updatedUser)
-        return updatedUser
+        
+        return redirect('dashboard/$user/createPitch/create2')
 
     } else return console.log("not wow not wow not wow")
 
@@ -55,9 +55,7 @@ function CreatePitchIndex({}: Props) {
           />
 
    {/* TODO: enctype on form, clone request in action so that 2's loader has access after the image upload function returns       <input type="file" name="image"></input> */}
-   <Link to="/create2">
-       <button type="submit"   className="btn btn-primary">Next</button>
-       </Link>
+   <button type="submit"   className="btn btn-primary">Next</button>
         </Form>
       </section>
 

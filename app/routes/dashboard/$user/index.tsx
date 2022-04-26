@@ -45,6 +45,7 @@ function UserIndex({}: Props) {
     e.preventDefault();
     alert("javascript still working");
   };
+
   //TODO: Dashboard UI
   return (
     <div className="flex flex-col border-black border-3 gap-3">
@@ -53,7 +54,7 @@ function UserIndex({}: Props) {
         {/*  <div className="btn btn-outline w-16 shadow-md bg-base-100 shadow-base-500">Edit</div> */}
         
           {currentUser.category === 'maker' && currentUser.pitch === null ? 
-          <Link to="createPitch" className="place-self-center">
+          <Link to="createPitch/create1" className="place-self-center">
             <div className="btn btn-primary ">Create your pitch!</div>
           </Link>
           :
