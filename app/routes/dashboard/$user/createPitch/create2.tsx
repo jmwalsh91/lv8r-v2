@@ -1,4 +1,5 @@
 import { LoaderFunction } from '@remix-run/node'
+import { Form } from '@remix-run/react';
 import React from 'react'
 import { supabaseStrategy } from '~/services/auth.server';
 
@@ -25,7 +26,16 @@ function Create2({}: Props) {
         <p className="text text-3xl text-secondary text-center">
           What is the problem that your product solves?
         </p>
+        <Form method="post">
+    <section className='flex flex-col justify-center items-center gap-4 mt-4'>
+      <textarea className="textarea textarea-primary w-96" placeholder="Problem Intro" name="problemIntro"></textarea>
+      <textarea className="textarea textarea-primary w-96 h-40" placeholder="Elaborate on the problem!"></textarea>
+      <button type="submit" name="problemInfo"  className="btn btn-primary">Next</button>
+</section>
+
+</Form>
       </section>
+   
     </div>
   )
 }
