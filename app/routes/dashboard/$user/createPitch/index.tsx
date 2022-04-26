@@ -1,4 +1,4 @@
-import { ActionFunction, LoaderFunction, redirect } from "@remix-run/node";
+import { ActionFunction, json, LoaderFunction, redirect } from "@remix-run/node";
 import { Form, Link } from "@remix-run/react";
 import { supabaseStrategy } from "~/services/auth.server";
 
@@ -13,11 +13,16 @@ export const loader: LoaderFunction = async ({ request }) => {
 export const action: ActionFunction = async ({ request }) => {
   //TODO: function = upload image to bucket, get image url from return
   // Access values in this page in loader on /2
-  const data = await request.formData()
-  console.log(data)
+  const form: FormData  = await request.clone().formData()
+  console.log(form)
   console.log("woo")
-  return redirect('2')
+
+return form
 };
+
+
+
+
 
 type Props = {};
 
@@ -37,7 +42,7 @@ function index({}: Props) {
           Make your pitch!
         </p>
 
-        <Form encType="multipart/form-data" className="flex flex-col justify-center gap-8">
+        <Form method="post"   /* encType="multipart/form-data" */ className="flex flex-col justify-center gap-8">
           <input
             type="text"
             name="productName"
@@ -46,10 +51,11 @@ function index({}: Props) {
           />
 
    {/* TODO: enctype on form, clone request in action so that 2's loader has access after the image upload function returns       <input type="file" name="image"></input> */}
+ 
         </Form>
       </section>
-      <Link to="2">
-        <button type="submit" className="btn btn-primary">Next</button>
+       <Link to="2">
+       <button type="submit"   className="btn btn-primary">Next</button>
       </Link>
     </div>
   );

@@ -3,11 +3,13 @@ import React from 'react'
 import { supabaseStrategy } from '~/services/auth.server';
 
 type Props = {}
-/* export const loader: LoaderFunction = async ({request}) => {
-    let data = await request.formData()
-    console.log(data)
+export const loader: LoaderFunction = async ({request}) => {
+
+const data = request.body
+console.log("loader")
+console.log(data)
     return data
-} */
+}
 function createPitch2({}: Props) {
   return (
     <div className="flex flex-col justify-items-center justify-center align-center">
