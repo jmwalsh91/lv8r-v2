@@ -9,6 +9,7 @@ export const createPitch = async (form: FormData) => {
 
   let { data: pitch, error } = await dbClient.from("Pitch").insert({
     pitchName: pitchName,
+    ownerId: ownerId
   });
   if (pitch) {
     let updatedUser = await dbClient
@@ -32,14 +33,39 @@ export const insertPageTwo = async (form: FormData) => {
 
   let { data: pitch, error } = await dbClient
     .from("Pitch")
-    .insert({
+    .update({
       p2TextIntro: problemIntro,
-      p2TextInfo: problemInfo,
+      p2TextInfo: problemInfo
     })
-    .match({ owner: ownerId });
+    .match({ ownerId: ownerId });
 
-    console.log(pitch)
+    if (pitch) {
+        console.log(pitch)
+    } if (error) {
+        console.log(error)
+    }
 
     return pitch 
 
 };
+//TODO: rename "update"
+export const insertPageThree = async (form: FormData) => {
+    let ownerId: FormDataEntryValue | null = await form.get("ownerId");
+    let solutionIntro: FormDataEntryValue | null = await form.get("solutionIntro");
+    let solutionInfo: FormDataEntryValue | null = await form.get("solutionInfo");
+  
+    console.log("page three");
+  
+    let { data: pitch, error } = await dbClient
+      .from("Pitch")
+      .update({
+        p3TextIntro: solutionIntro,
+        p3TextInfo: solutionInfo,
+      })
+      .match({ owner: ownerId });
+  
+      console.log(pitch)
+  
+      return pitch 
+  
+  };
