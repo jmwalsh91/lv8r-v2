@@ -1,6 +1,8 @@
 import { ActionFunction, json, LoaderFunction, redirect } from "@remix-run/node";
 import { Form, Link, useLoaderData } from "@remix-run/react";
+import { UserObj } from "~/interfaces";
 import { supabaseStrategy } from "~/services/auth.server";
+import { getUserFromId } from "~/utilities/getUserInfo";
 import { createPitch } from "~/utilities/pitchUtils";
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -15,13 +17,14 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export const action: ActionFunction = async ({request}) => {
     const form: FormData = await request.formData()
-    let updatedUser = await createPitch(form)
-    if (updatedUser) {
+    let updatedUser: UserObj | null = await createPitch(form)
+    if (updatedUser ) {
         console.log(updatedUser)
-        
-        return redirect('dashboard/$user/createPitch/create2')
+        let username: string | null = updatedUser.username
+        console.log(username)
+        return redirect(`dashboard/${username}/createPitch/create2`)
 
-    } else return console.log("not wow not wow not wow")
+    } else return console.log("error")
 
 }
 

@@ -12,17 +12,20 @@ export const createPitch = async (form: FormData) => {
     ownerId: ownerId,
   });
   if (pitch) {
-    let updatedUser = await dbClient
+    let {data, error} = await dbClient
       .from("Users")
       .update({ pitch: pitch[0].id })
       .match({ owner: ownerId });
-    console.log(updatedUser);
-    return updatedUser;
+ if (data) {
+     return data[0]
+ }
   }
   if (error) {
     return console.log(error);
   }
 };
+
+
 
 export const insertPageTwo = async (form: FormData) => {
   let ownerId: FormDataEntryValue | null = form.get("ownerId");
