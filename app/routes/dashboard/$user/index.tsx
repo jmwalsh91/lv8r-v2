@@ -1,11 +1,12 @@
 import React, { ReactEventHandler } from "react";
 import {
+  Link,
   useLoaderData,
 } from "@remix-run/react";
 import type { LoaderFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { supabaseStrategy } from "~/services/auth.server";
-import { getUser } from "~/utilities/getUserInfo";
+import { getUserFromParams } from "~/utilities/getUserInfo";
 import type { UserObj } from "~/interfaces";
 import Stats from "~/components/info/Stats";
 import OpenButton from "~/components/buttons/OpenButton";
@@ -26,7 +27,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   }
   //get User from db, to have access to username, pitchId, cardId, etc.
   if (paramsUsername && session) {
-    let userObject: UserObj | void = await getUser(paramsUsername);
+    let userObject: UserObj | Error |  void = await getUserFromParams(paramsUsername);
     return userObject;
   } else return console.error();
 };
@@ -44,15 +45,25 @@ function UserIndex({}: Props) {
     e.preventDefault();
     alert("javascript still working");
   };
+
   //TODO: Dashboard UI
   return (
     <div className="flex flex-col border-black border-3 gap-3">
       <QuickProfile currentUser={currentUser} />
       <section className="card bg-base-100 w-[80vw] h-[50vh] flex flex-col justify-around shadow-md shadow-orange">
         {/*  <div className="btn btn-outline w-16 shadow-md bg-base-100 shadow-base-500">Edit</div> */}
-        <p className="text sm:text-xl md:text-3xl text-center text-primary ">
+        
+          {currentUser.category === 'maker' && currentUser.pitch === null ? 
+          <Link to="createPitch/create1" className="place-self-center">
+            <div className="btn btn-primary ">Create your pitch!</div>
+          </Link>
+          :
+          <p className="text sm:text-xl md:text-3xl text-center text-primary "> 
           You have no notifications
-        </p>
+          </p>}
+       {/*    <div className="btn btn-primary" onClick={(e) => handleClick(e)}>test</div> */}
+
+        
         {/*   <div className="flex w-full">
   <div className="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center">content</div>
   <div className="divider divider-horizontal">LV8R</div>

@@ -2,7 +2,7 @@ import { isErrorResponse } from "@remix-run/react/data";
 import { UserObj } from "~/interfaces";
 import { dbClient } from "~/services/dbClient";
 
-export const getUsername = async (userId: string) => {
+export const getUsername = async (userId: FormDataEntryValue | string | null) => {
   let idArg = userId;
 
   //get User's username where email returned from authenticator matches User's email.
@@ -18,7 +18,7 @@ export const getUsername = async (userId: string) => {
   if (data) return data[0].username;
 };
 
-export const getUser = async (paramsUsername: string | undefined) => {
+export const getUserFromParams = async (paramsUsername: string | undefined) => {
   let user: UserObj;
   if (paramsUsername) {
     let usernameFromLoader: string = paramsUsername;
@@ -27,9 +27,32 @@ export const getUser = async (paramsUsername: string | undefined) => {
     let { data, error } = await dbClient
       .from("Users")
       .select(
-        "id, username, category, bio, pitch, encountered_pitches, received_cards, sent_cards, owner"
+        "id, username, category, bio, pitch (id, likes, dislikes), encountered_pitches, received_cards, sent_cards, owner"
       )
       .match({ username: `${usernameFromLoader}` });
+
+    user = data?.[0];
+    console.log(user);
+    //if error TODO: throw authorizationError
+    if (error) return Error(error.message)
+    //if data return data
+    if (data) return user;
+  } else throw Error;
+};
+
+
+
+export const getUserFromId = async (ownerId: string | undefined) => {
+  let user: UserObj;
+  if (ownerId) {
+    
+    //Get User data by matching the ID of authUser from sessionsData to ownerId col in Users table
+    let { data, error } = await dbClient
+      .from("Users")
+      .select(
+        "id, username, category, bio, pitch, encountered_pitches, received_cards, sent_cards, owner"
+      )
+      .match({ ownerId: ownerId });
 
     user = data?.[0];
     console.log(user);
@@ -39,3 +62,4 @@ export const getUser = async (paramsUsername: string | undefined) => {
     if (data) return user;
   } else throw Error;
 };
+
