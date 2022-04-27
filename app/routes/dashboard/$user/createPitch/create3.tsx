@@ -1,9 +1,10 @@
-import { ActionFunction, LoaderFunction, redirect } from '@remix-run/node'
+import type { ActionFunction, LoaderFunction} from '@remix-run/node'
 import { Form, useLoaderData } from '@remix-run/react';
+import { redirect } from '@remix-run/node';
 import React from 'react'
 import { supabaseStrategy } from '~/services/auth.server';
 import { getUsername } from '~/utilities/getUserInfo';
-import { insertPageThree, insertPageTwo } from '~/utilities/pitchUtils';
+import { insertPageThree} from '~/utilities/pitchUtils';
 
 type Props = {}
 export const loader: LoaderFunction = async ({ request }) => {
@@ -35,7 +36,7 @@ function Create3({}: Props) {
         <ul className="card steps rounded-2xl bg-base-100 w-full mb-3 rounded-sm">
           <li className="step step-primary ">Cover</li>
           <li className="step step-primary">Problem</li>
-          <li className="step">Solution</li>
+          <li className="step step-primary">Solution</li>
           <li className="step">Demo/CTA</li>
         </ul>
       </div>
@@ -47,8 +48,8 @@ function Create3({}: Props) {
         <input type="hidden" value={user.user.id} name="ownerId"></input>
     <section className='flex flex-col justify-center items-center gap-4 mt-4'>
       <textarea className="textarea textarea-primary w-96" placeholder="solution intro" name="solutionIntro"></textarea>
-      <textarea className="textarea textarea-primary w-96 h-40" placeholder="Elaborate on the solution!"></textarea>
-      <button type="submit" name="solutionInfo"  className="btn btn-primary">Next</button>
+      <textarea className="textarea textarea-primary w-96 h-40" placeholder="Elaborate on the solution!" name="solutionInfo"></textarea>
+      <button type="submit"   className="btn btn-primary">Next</button>
 </section>
 
 </Form>

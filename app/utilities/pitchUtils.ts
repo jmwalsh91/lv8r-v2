@@ -61,8 +61,8 @@ export const insertPageThree = async (form: FormData) => {
   let { data: pitch, error } = await dbClient
     .from("Pitch")
     .update({
-      p3TextIntro: solutionIntro,
-      p3TextInfo: solutionInfo,
+      p3Text1: solutionIntro,
+      p3Text2: solutionInfo,
     })
     .match({ owner: ownerId });
 
@@ -70,3 +70,24 @@ export const insertPageThree = async (form: FormData) => {
 
   return pitch;
 };
+
+export const insertPageFour = async (form: FormData) => {
+    let ownerId: FormDataEntryValue | null = form.get("ownerId");
+    let demoIntro: FormDataEntryValue | null = form.get("demoIntro");
+    let demoInfo: FormDataEntryValue | null = form.get("demoInfo");
+  
+    console.log("page four");
+  
+    let { data: pitch, error } = await dbClient
+      .from("Pitch")
+      .update({
+        p4Text1: demoIntro,
+        p4Text2: demoInfo,
+      })
+      .match({ owner: ownerId });
+  
+    console.log(pitch);
+  
+    return pitch;
+  };
+  
