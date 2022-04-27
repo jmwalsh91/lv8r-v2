@@ -22,7 +22,8 @@ export const loader: LoaderFunction = async ({ request }) => {
     let username = await getUsername(id);
   
     if (pitch) {
-      console.log(username);
+        console.log(username)
+      console.log(pitch);
       return redirect(`dashboard/${username}/createPitch/create4`);
     } else return Error("an error occured");
   };

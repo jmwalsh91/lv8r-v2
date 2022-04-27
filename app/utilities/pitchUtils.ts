@@ -57,19 +57,25 @@ export const insertPageThree = async (form: FormData) => {
   let solutionInfo: FormDataEntryValue | null = form.get("solutionInfo");
 
   console.log("page three");
+  console.log(solutionInfo + " " + solutionIntro + ownerId)
 
   let { data: pitch, error } = await dbClient
     .from("Pitch")
     .update({
       p3Text1: solutionIntro,
-      p3Text2: solutionInfo,
+      p3Text2: solutionInfo
     })
-    .match({ owner: ownerId });
+    .match({ ownerId: ownerId });
 
-  console.log(pitch);
-
-  return pitch;
-};
+    if (pitch) {
+        console.log(pitch);
+      }
+      if (error) {
+        console.log(error);
+      }
+    
+      return pitch;
+    };
 
 export const insertPageFour = async (form: FormData) => {
     let ownerId: FormDataEntryValue | null = form.get("ownerId");
@@ -84,10 +90,15 @@ export const insertPageFour = async (form: FormData) => {
         p4Text1: demoIntro,
         p4Text2: demoInfo,
       })
-      .match({ owner: ownerId });
-  
-    console.log(pitch);
-  
-    return pitch;
+      .match({ ownerId: ownerId });
+      
+      if (pitch) {
+        console.log(pitch);
+      }
+      if (error) {
+        console.log(error);
+      }
+    
+      return pitch;
   };
   
