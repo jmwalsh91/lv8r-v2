@@ -15,7 +15,7 @@ export const action: ActionFunction = async ({request}) => {
   const form = await request.formData()
   let pitchResponse = await insertPageThree(form)
   if (pitchResponse) {
-    return redirect('/create3')
+    return console.log(pitchResponse)
   } else return Error("an error occurred")
 }
 

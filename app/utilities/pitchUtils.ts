@@ -1,4 +1,5 @@
 import { isErrorResponse } from "@remix-run/react/data";
+import { PostgrestResponse } from "@supabase/supabase-js";
 import { dbClient } from "~/services/dbClient";
 
 export const createPitch = async (form: FormData) => {
@@ -25,8 +26,6 @@ export const createPitch = async (form: FormData) => {
   }
 };
 
-
-
 export const insertPageTwo = async (form: FormData) => {
   let ownerId: FormDataEntryValue | null = form.get("ownerId");
   let problemIntro: FormDataEntryValue | null = form.get("problemIntro");
@@ -34,7 +33,7 @@ export const insertPageTwo = async (form: FormData) => {
 
   console.log("page two");
 
-  let { data: pitch, error } = await dbClient
+  let { data: pitch , error } = await dbClient
     .from("Pitch")
     .update({
       p2TextIntro: problemIntro,

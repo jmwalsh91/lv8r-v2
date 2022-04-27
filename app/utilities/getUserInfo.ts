@@ -2,7 +2,7 @@ import { isErrorResponse } from "@remix-run/react/data";
 import { UserObj } from "~/interfaces";
 import { dbClient } from "~/services/dbClient";
 
-export const getUsername = async (userId: string) => {
+export const getUsername = async (userId: FormDataEntryValue | string | null) => {
   let idArg = userId;
 
   //get User's username where email returned from authenticator matches User's email.
