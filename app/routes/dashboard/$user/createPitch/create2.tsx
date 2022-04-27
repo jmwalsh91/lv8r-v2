@@ -2,7 +2,7 @@ import { ActionFunction, LoaderFunction, redirect } from "@remix-run/node";
 import { Form, useLoaderData } from "@remix-run/react";
 import React from "react";
 import { supabaseStrategy } from "~/services/auth.server";
-import { insertPageTwo } from "~/utilities/pitchUtils";
+import { updatePitchP2 } from "~/utilities/pitchUtils";
 import type { UserObj } from "app/interfaces";
 import { getUserFromId, getUsername } from "~/utilities/getUserInfo";
 type Props = {};
@@ -17,7 +17,8 @@ export const loader: LoaderFunction = async ({ request }) => {
 export const action: ActionFunction = async ({ request }) => {
   let form: FormData = await request.clone().formData();
   let id: FormDataEntryValue | null = form.get("ownerId");
-  let pitch = await insertPageTwo(form);
+  //TODO: compare Promise.all to sequential await
+  let pitch = await updatePitchP2(form);
   let username = await getUsername(id);
 
   if (pitch) {

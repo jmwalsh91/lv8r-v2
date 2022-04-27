@@ -27,7 +27,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   }
   //get User from db, to have access to username, pitchId, cardId, etc.
   if (paramsUsername && session) {
-    let userObject: UserObj | void = await getUserFromParams(paramsUsername);
+    let userObject: UserObj | Error |  void = await getUserFromParams(paramsUsername);
     return userObject;
   } else return console.error();
 };
@@ -61,6 +61,7 @@ function UserIndex({}: Props) {
           <p className="text sm:text-xl md:text-3xl text-center text-primary "> 
           You have no notifications
           </p>}
+       {/*    <div className="btn btn-primary" onClick={(e) => handleClick(e)}>test</div> */}
 
         
         {/*   <div className="flex w-full">

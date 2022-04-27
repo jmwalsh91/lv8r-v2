@@ -4,7 +4,7 @@ import { redirect } from "@remix-run/node";
 import React from "react";
 import { supabaseStrategy } from "~/services/auth.server";
 import { getUsername } from "~/utilities/getUserInfo";
-import { insertPageFour, insertPageThree } from "~/utilities/pitchUtils";
+import { updatePitchP4 } from "~/utilities/pitchUtils";
 
 type Props = {};
 export const loader: LoaderFunction = async ({ request }) => {
@@ -18,7 +18,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 export const action: ActionFunction = async ({ request }) => {
   let form: FormData = await request.clone().formData();
   let id: FormDataEntryValue | null = form.get("ownerId");
-  let pitch = await insertPageFour(form);
+  let pitch = await updatePitchP4(form);
   let username = await getUsername(id);
 
   if (pitch) {
@@ -41,7 +41,7 @@ function Create4({}: Props) {
       </div>
       <section className="card w-[80vw] h-[60vh] bg-base-100 justify-center">
         <p className="text text-3xl text-secondary text-center">
-          This is the last page. 
+          This is the last page.
         </p>
         <Form method="post">
           <input type="hidden" value={user.user.id} name="ownerId"></input>
@@ -56,11 +56,7 @@ function Create4({}: Props) {
               placeholder="Elaborate on the solution!"
               name="demoInfo"
             ></textarea>
-            <button
-              type="submit"
-            
-              className="btn btn-primary"
-            >
+            <button type="submit" className="btn btn-primary">
               Next
             </button>
           </section>

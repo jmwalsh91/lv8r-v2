@@ -27,14 +27,14 @@ export const getUserFromParams = async (paramsUsername: string | undefined) => {
     let { data, error } = await dbClient
       .from("Users")
       .select(
-        "id, username, category, bio, pitch, encountered_pitches, received_cards, sent_cards, owner"
+        "id, username, category, bio, pitch (id, likes, dislikes), encountered_pitches, received_cards, sent_cards, owner"
       )
       .match({ username: `${usernameFromLoader}` });
 
     user = data?.[0];
     console.log(user);
     //if error TODO: throw authorizationError
-    if (error) return console.log(error);
+    if (error) return Error(error.message)
     //if data return data
     if (data) return user;
   } else throw Error;
