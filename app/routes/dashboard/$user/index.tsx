@@ -6,7 +6,7 @@ import {
 import type { LoaderFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { supabaseStrategy } from "~/services/auth.server";
-import { getUser } from "~/utilities/getUserInfo";
+import { getUserFromParams } from "~/utilities/getUserInfo";
 import type { UserObj } from "~/interfaces";
 import Stats from "~/components/info/Stats";
 import OpenButton from "~/components/buttons/OpenButton";
@@ -27,7 +27,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   }
   //get User from db, to have access to username, pitchId, cardId, etc.
   if (paramsUsername && session) {
-    let userObject: UserObj | void = await getUser(paramsUsername);
+    let userObject: UserObj | void = await getUserFromParams(paramsUsername);
     return userObject;
   } else return console.error();
 };
